@@ -1,0 +1,34 @@
+{
+  "uid": "system-logs-metrics",
+  "title": "System Metrics & Logs",
+  "schemaVersion": 27,
+  "version": 1,
+  "panels": [
+    {
+      "type": "graph",
+      "title": "CPU Rate (5m avg)",
+      "datasource": "Prometheus",
+      "targets": [
+        { "expr": "rate(node_cpu_seconds_total{mode!=\"idle\"}[5m])" }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Memory Available (%)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100"
+        }
+      ]
+    },
+    {
+      "type": "logs",
+      "title": "System Logs",
+      "datasource": "Loki",
+      "targets": [
+        { "expr": "{job=\"varlogs\"}" }
+      ]
+    }
+  ]
+}
